@@ -1,0 +1,99 @@
+menu "Black Badge Raffle Badge Configuration"
+    choice BADGE_TYPE
+        prompt "Badge Type"
+        default BADGE_TYPE_NORMAL
+        help
+            Select the badge type to make sure it is configured properly
+        config BADGE_TYPE_NORMAL
+            bool "Normal"
+        config BADGE_TYPE_TROLL
+            bool "Troll"
+        config BADGE_TYPE_BEACON
+            bool "Beacon"
+            select BOARD_TYPE_ESPDEV
+        config BADGE_TYPE_HWTEST
+            bool "Hardware Test"
+        config BADGE_TYPE_MASTER
+            bool "Master"
+        config BADGE_TYPE_ENTRANT
+            bool "Entrant"
+    endchoice
+
+    choice BOARD_TYPE
+        prompt "Board Revision"
+        default BOARD_TYPE_PROD
+        help
+            Board revision
+        config BOARD_TYPE_DEV
+            bool "Development Board"
+        config BOARD_TYPE_PROD
+            bool "Production Board"
+        config BOARD_TYPE_ESPDEV
+            bool "ESP32-C3-DevKitC-02"
+    endchoice
+
+    config NUKE_FATFS
+        bool "Nuke FAT"
+        default 0
+        help
+            Nuke FAT filesystem during flash
+
+    config TROLL_BEACON
+        depends on BADGE_TYPE_TROLL
+        bool "Troll is mobile beacon"
+        default 0
+        help
+            Should this troll badge also have a beacon
+
+    config DEV_MODE
+        bool "Developer Mode"
+        default 0
+        help
+            Go straight to flag viewer
+
+    config BBR_ENABLE_WIFI
+        bool "Enable WiFi"
+        default 0
+        depends on BADGE_TYPE_MASTER || BADGE_TYPE_BEACON || BADGE_TYPE_TROLL
+        help
+            Enable wifi
+
+    choice BBR_WIFI_TARGET
+        prompt "WiFi Target"
+        depends on BBR_ENABLE_WIFI
+        default WIFI_TARGET_HOME
+        help
+            Where are we going
+        config WIFI_TARGET_HOME
+            bool "Home"
+        config WIFI_TARGET_DEFCON
+            bool "DEFCON"
+    endchoice
+
+
+    config RAFFLE_ADV_FLAG_TIMEOUT
+        int "Raffle Advertisement Flag Timeout (ms)"
+        range 1000 600000
+        default 60000
+        help
+            Time to advertise a temporary flag
+
+
+    config BROADCAST_RATE_LIMIT
+        int "Broadcast Interrupt Limit (ms)"
+        range 1000 600000
+        default 300000
+        help
+            Minimium time between badge broadcast interrupts in milliseconds
+
+    config BOTNET_BLING_RATE_LIMIT
+        int "Botnet Bling Rate Limit (ms)"
+        range 1000 600000
+        default 300000
+        help
+            Minimum time between botnet bling animations in milliseconds
+
+    
+
+
+endmenu

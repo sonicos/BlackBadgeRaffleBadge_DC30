@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"system.h": "c",
+			"boot.h": "c",
+			"*.tcc": "c",
+			"deque": "c",
+			"list": "c",
+			"string": "c",
+			"unordered_map": "c",
+			"unordered_set": "c",
+			"vector": "c",
+			"system_error": "c",
+			"*.ipp": "c",
+			"*.inc": "c",
+			"mutex": "c",
+			"thread": "c",
+			"random": "c",
+			"esp_heap_trace.h": "c",
+			"chrono": "c"
+		}
+	}
+}
